@@ -85,7 +85,7 @@ function makePageForEpisodes(episodeList) {
 function formatEpisodeCode(seasonNumber, episodeNumber) {
 	const season = String(seasonNumber).padStart(2, '0');
 	const number = String(episodeNumber).padStart(2, '0');
-	return `S${season}-E${number}`;
+	return `S${season}E${number}`;
 }
 
 // Strip HTML tags from a string to get plain text
