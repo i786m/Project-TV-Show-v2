@@ -1,3 +1,149 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: 'Segoe UI', Tahoma, sans-serif;
+	background: #1a1625;
+	color: #f0e6ff;
+}
+
+a {
+	color: #cdeafe;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #cdeafe;
+}
+
+a:hover,
+a:focus-visible {
+	color: #e0f2fe;
+}
+
+.page-footer a,
+.page-footer a:visited {
+	color: #f0f9ff;
+	text-decoration: underline;
+}
+
+.page-footer a:hover,
+.page-footer a:focus-visible {
+	color: #ffffff;
+}
+
 #root {
-  color: red;
+	min-height: 100vh;
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.page-title {
+	margin: 0;
+	font-size: 28px;
+	letter-spacing: 0.5px;
+}
+
+.episodes-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 16px;
+	width: 100%;
+	align-items: stretch;
+}
+
+@media (min-width: 1024px) {
+	.episodes-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+.episode-card-link {
+	text-decoration: none;
+	color: inherit;
+	display: flex;
+	flex-direction: column;
+	outline-offset: 2px;
+}
+
+.episode-card {
+	background: #2d1b4e;
+	border: 1px solid #3d2563;
+	border-radius: 12px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+	height: 380px;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.episode-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+}
+
+.episode-card img {
+	width: 100%;
+	height: 180px;
+	object-fit: cover;
+	display: block;
+}
+
+.episode-body {
+	padding: 14px 16px 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	flex: 1;
+	overflow: hidden;
+}
+
+.episode-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 8px;
+}
+
+.episode-name {
+	margin: 0;
+	font-size: 18px;
+}
+
+.episode-code {
+	margin: 0;
+	font-weight: 700;
+	color: #ffa500;
+	letter-spacing: 0.5px;
+}
+
+.episode-summary {
+	margin: 0;
+	line-height: 1.5;
+	color: #d4c5f9;
+	flex: 1;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 5;
+	line-clamp: 5;
+	text-overflow: ellipsis;
+}
+
+.attribution {
+	font-size: 14px;
+	color: #d4c5f9;
+}
+
+.page-footer {
+	margin-top: 8px;
+	padding-top: 8px;
+	border-top: 1px solid #3d2563;
+	text-align: center;
+	font-weight: 700;
 }
