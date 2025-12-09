@@ -75,8 +75,14 @@ function makePageForEpisodes(episodeList) {
 	footer.className = 'page-footer';
 	const attribution = document.createElement('p');
 	attribution.className = 'attribution';
-	attribution.innerHTML =
-		'Data originally from <a href="https://www.tvmaze.com/" target="_blank" rel="noreferrer">TVMaze.com</a>.';
+	attribution.textContent = 'Data originally from ';
+	const link = document.createElement('a');
+	link.href = 'https://www.tvmaze.com/';
+	link.target = '_blank';
+	link.rel = 'noreferrer';
+	link.textContent = 'TVMaze.com';
+	attribution.appendChild(link);
+	attribution.appendChild(document.createTextNode('.'));
 	footer.appendChild(attribution);
 	rootElem.appendChild(footer);
 }
