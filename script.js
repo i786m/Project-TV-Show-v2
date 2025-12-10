@@ -18,6 +18,7 @@ function setup() {
 
   const selectControl = document.getElementById("episode-select");
   selectControl.append(...options);
+  selectControl.addEventListener("change", selectionDidChange);
 
   const searchInput = document.getElementById("search");
   searchInput.addEventListener("input", searchDidChange);
@@ -25,8 +26,13 @@ function setup() {
   makePageForEpisodes(allEpisodes);
 }
 
+function selectionDidChange(event) {
+  const episodeID = Number(event.target.value);
+  const episode = state.episodes.find((episode) => episode.id === episodeID);
+  makePageForEpisodes([episode]);
+}
+
 function searchDidChange(event) {
-  console.log("Hello: ", event.target.value);
   state.searchText = event.target.value;
   render();
 }
