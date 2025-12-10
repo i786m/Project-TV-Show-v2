@@ -9,6 +9,24 @@ body {
 	color: #f0e6ff;
 }
 
+header {
+	background-color: #2d1b4e;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+	padding: 10px;
+}
+
+header p {
+	margin: 0;
+}
+
+header input {
+	width: 250px;
+	padding: 6px;
+}
+
 a {
 	color: #cdeafe;
 	text-decoration: none;
