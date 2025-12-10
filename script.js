@@ -7,10 +7,21 @@ const searchResults = document.getElementById("search-results");
 
 // Initialize page on load: fetch episodes and render them
 function setup() {
+  const allEpisodes = state.episodes;
+
+  const options = allEpisodes.map((episode) => {
+    const option = document.createElement("option");
+    option.textContent = episode.name;
+    option.value = episode.id;
+    return option;
+  });
+
+  const selectControl = document.getElementById("episode-select");
+  selectControl.append(...options);
+
   const searchInput = document.getElementById("search");
   searchInput.addEventListener("input", searchDidChange);
 
-  const allEpisodes = state.episodes;
   makePageForEpisodes(allEpisodes);
 }
 
