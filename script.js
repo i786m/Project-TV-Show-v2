@@ -192,7 +192,7 @@ function makePageForEpisodes(episodeList) {
 				'+'
 			)}`;
 		}
-		image.alt = `$ {
+		image.alt = `${
 			episode.image && episode.image.medium
 				? episode.name + ' thumbnail'
 				: 'Placeholder Image for ' + episode.name
