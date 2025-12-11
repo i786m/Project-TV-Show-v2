@@ -141,6 +141,7 @@ function render() {
 		state.searchText !== ''
 	) {
 		selectControl.value = '';
+		state.selectedId = '';
 	}
 
 	if (searchText === '') {
