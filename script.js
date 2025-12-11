@@ -134,7 +134,6 @@ function render() {
 	const searchText = state.searchText.toLowerCase();
 	const total = state.episodes.length;
 
-	const selectControl = document.getElementById('episode-select');
 	if (
 		selectControl &&
 		selectControl.value !== '' &&
