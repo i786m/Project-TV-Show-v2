@@ -32,10 +32,15 @@ async function setup() {
   attachListeners();
 
   try {
+    const tvShows = await fetchTVShows();
+    state.tvShows = tvShows;
+
     const episodes = await fetchEpisodes();
     state.episodes = episodes;
+
     state.status = "loaded";
 
+    populateTVShowSelectControl(tvShows);
     populateEpisodeSelectControl(episodes);
     render();
   } catch (error) {
@@ -56,6 +61,14 @@ function attachListeners() {
   }
 }
 
+async function fetchTVShows() {
+  const url = "https://api.tvmaze.com/shows";
+  const response = await fetch(url);
+  const data = await response.json();
+
+  return data;
+}
+
 /*
  * Fetch episodes from TVMaze API
  * Throws on non-OK HTTP responses so callers can handle errors.
@@ -66,6 +79,28 @@ async function fetchEpisodes() {
     throw new Error("Failed to fetch episodes");
   }
   return response.json();
+}
+
+function populateTVShowSelectControl(tvShows) {
+  if (!tvShows) return;
+
+  tvShowSelectControl.innerHTML = "";
+  const fragment = document.createDocumentFragment();
+
+  tvShows.forEach((tvShow) => {
+    const optionElement = document.createElement("option");
+    optionElement.textContent = `${tvShow.name}`;
+    optionElement.value = tvShow.id;
+    fragment.appendChild(optionElement);
+  });
+
+  tvShowSelectControl.appendChild(fragment);
+
+  const gameOfThrones = tvShows.find((tvShow) => tvShow.name === "Game of Thrones");
+
+  if (gameOfThrones) {
+    tvShowSelectControl.value = String(gameOfThrones.id);
+  }
 }
 
 // Populate the episode selection dropdown with fetched episodes
