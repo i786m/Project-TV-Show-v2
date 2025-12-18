@@ -53,7 +53,7 @@ async function setup() {
 // Wire up DOM event handlers for the select and search input controls
 function attachListeners() {
   if (episodeSelectControl) {
-    episodeSelectControl.addEventListener("change", selectionDidChange);
+    episodeSelectControl.addEventListener("change", episodeSelectionDidChange);
   }
 
   if (searchInput) {
@@ -129,7 +129,7 @@ function populateEpisodeSelectControl(episodes) {
 // Handler for changes to the episode select control
 // - If an episode is selected, displays only that episode
 // - If cleared, shows all episodes
-function selectionDidChange(event) {
+function episodeSelectionDidChange(event) {
   const value = event.target.value;
   const total = state.episodes.length;
   state.selectedId = value;
