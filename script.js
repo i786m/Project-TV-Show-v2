@@ -8,6 +8,7 @@ const state = {
   tvShows: [],
   episodes: [],
   searchText: "",
+  selectedTVShowID: "",
   selectedEpisodeID: "",
   status: "idle",
   errorMessage: "",
@@ -35,13 +36,10 @@ async function setup() {
     const tvShows = await fetchTVShows();
     state.tvShows = tvShows;
 
-    const episodes = await fetchEpisodes();
-    state.episodes = episodes;
-
     state.status = "loaded";
 
     populateTVShowSelectControl(tvShows);
-    populateEpisodeSelectControl(episodes);
+    populateEpisodeSelectControl(state.tvShows);
     render();
   } catch (error) {
     state.status = "error";
@@ -52,6 +50,10 @@ async function setup() {
 
 // Wire up DOM event handlers for the select and search input controls
 function attachListeners() {
+  if (tvShowSelectControl) {
+    tvShowSelectControl.addEventListener("change", tvShowSelectionDidChange);
+  }
+
   if (episodeSelectControl) {
     episodeSelectControl.addEventListener("change", episodeSelectionDidChange);
   }
@@ -66,6 +68,9 @@ async function fetchTVShows() {
   const response = await fetch(url);
   const data = await response.json();
 
+  const episodes = await fetchEpisodes(82);
+  state.episodes = episodes;
+
   return data;
 }
 
@@ -73,11 +78,14 @@ async function fetchTVShows() {
  * Fetch episodes from TVMaze API
  * Throws on non-OK HTTP responses so callers can handle errors.
  */
-async function fetchEpisodes() {
-  const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+async function fetchEpisodes(tvShowID) {
+  const url = `https://api.tvmaze.com/shows/${tvShowID}/episodes`;
+  const response = await fetch(url);
+
   if (!response.ok) {
     throw new Error("Failed to fetch episodes");
   }
+
   return response.json();
 }
 
@@ -115,6 +123,7 @@ function populateEpisodeSelectControl(episodes) {
   episodeSelectControl.appendChild(defaultOption);
 
   const fragment = document.createDocumentFragment();
+
   episodes.forEach((episode) => {
     const option = document.createElement("option");
     option.textContent = `${formatEpisodeCode(episode.season, episode.number)} - ${episode.name}`;
@@ -124,6 +133,22 @@ function populateEpisodeSelectControl(episodes) {
 
   episodeSelectControl.appendChild(fragment);
   episodeSelectControl.value = "";
+}
+
+async function tvShowSelectionDidChange(event) {
+  const value = event.target.value;
+  const tvShowID = Number(value);
+  const tvShow = state.tvShows.find((tvShow) => tvShow.id === tvShowID);
+
+  state.status = "loading";
+  render();
+
+  const episodes = await fetchEpisodes(tvShow.id);
+  state.episodes = episodes;
+  populateEpisodeSelectControl(episodes);
+
+  state.status = "loaded";
+  render();
 }
 
 // Handler for changes to the episode select control
