@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="TV Show Project for Imran Mohamed (i786m)" />
+    <title>TV Show Project | Imran Mohamed (i786m)</title>
+    <link href="style.css" rel="stylesheet" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="TV Show Project for Imran Mohamed (i786m)" />
-  <title>TV Show Project | Imran Mohamed (i786m)</title>
-  <link href="style.css" rel="stylesheet" />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-</head>
+  <body>
+    <header>
+      <div class="left-group">
+        <label class="sr-only" for="tv-show-select">TV Show:</label>
+        <select name="tv-show-select" id="tv-show-select">
+          <option value="">Game of Thrones</option>
+        </select>
 
-<body>
-  <header>
-    <div class="left-group">
-      <label class="sr-only" for="episode-select">Episode:</label>
-      <select name="episode-select" id="episode-select">
-        <option value="">All Episodes</option>
-      </select>
-    </div>
+        <label class="sr-only" for="episode-select">Episode:</label>
+        <select name="episode-select" id="episode-select">
+          <option value="">All Episodes</option>
+        </select>
+      </div>
 
-    <div class="right-group">
-      <p id="search-results">All episodes</p>
-      <label class="sr-only" for="episode-search">Search episodes</label>
-      <input type="search" id="episode-search" name="search"
-        placeholder="Search episodes" />
+      <div class="right-group">
+        <p id="search-results">All episodes</p>
+        <label class="sr-only" for="episode-search">Search episodes</label>
+        <input type="search" id="episode-search" name="search" placeholder="Search episodes" />
+      </div>
+    </header>
+    <main id="root"></main>
 
-    </div>
-  </header>
-  <main id="root"></main>
-
-  <!-- Loads YOUR javascript code -->
-  <script src="script.js"></script>
-</body>
-
+    <!-- Loads YOUR javascript code -->
+    <script src="script.js"></script>
+  </body>
 </html>
