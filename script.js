@@ -71,7 +71,14 @@ function attachListeners() {
 	if (showSelectControl) {
 		showSelectControl.addEventListener('change', (event) => {
 			const value = event.target.value;
-			if (!value) return;
+			if (!value) {
+				// Reset selection and view when the placeholder option is chosen
+				state.selectedShowId = '';
+				state.selectedEpisodeId = '';
+				state.currentView = 'shows';
+				render();
+				return;
+			}
 			openShow(Number(value));
 		});
 	}
