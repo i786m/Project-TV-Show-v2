@@ -300,6 +300,8 @@ function renderShowsView() {
 		const card = document.createElement('article');
 		card.className = 'show-card';
 		card.tabIndex = 0;
+		card.setAttribute('role', 'button');
+		card.setAttribute('aria-label', `View episodes for ${show.name}`);
 		card.addEventListener('click', () => openShow(show.id));
 		card.addEventListener('keydown', (event) => {
 			if (event.key === 'Enter' || event.key === ' ') {
