@@ -404,10 +404,7 @@ function renderEpisodesView() {
 
 	const episodes = state.episodesByShowId[showId] || [];
 
-	if (
-		episodeSelectControl &&
-		episodeSelectControl.options.length !== episodes.length + 1
-	) {
+	if (episodeSelectControl) {
 		populateEpisodeSelectControl(episodes, state.selectedEpisodeId);
 	}
 
