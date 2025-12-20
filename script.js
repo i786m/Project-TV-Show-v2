@@ -71,7 +71,14 @@ function attachListeners() {
 	if (showSelectControl) {
 		showSelectControl.addEventListener('change', (event) => {
 			const value = event.target.value;
-			if (!value) return;
+			if (!value) {
+				// Reset selection and view when the placeholder option is chosen
+				state.selectedShowId = '';
+				state.selectedEpisodeId = '';
+				state.currentView = 'shows';
+				render();
+				return;
+			}
 			openShow(Number(value));
 		});
 	}
@@ -148,6 +155,8 @@ function populateTVShowSelectControl(tvShows) {
 	const placeholder = document.createElement('option');
 	placeholder.value = '';
 	placeholder.textContent = 'Jump to show';
+	placeholder.disabled = true;
+	placeholder.selected = true;
 	showSelectControl.appendChild(placeholder);
 
 	const fragment = document.createDocumentFragment();
@@ -305,6 +314,8 @@ function renderShowsView() {
 		const card = document.createElement('article');
 		card.className = 'show-card';
 		card.tabIndex = 0;
+		card.setAttribute('role', 'button');
+		card.setAttribute('aria-label', `View episodes for ${show.name}`);
 		card.addEventListener('click', () => openShow(show.id));
 		card.addEventListener('keydown', (event) => {
 			if (event.key === 'Enter' || event.key === ' ') {
@@ -336,10 +347,6 @@ function renderShowsView() {
 		titleButton.type = 'button';
 		titleButton.className = 'show-title-button';
 		titleButton.textContent = show.name;
-		titleButton.addEventListener('click', (event) => {
-			event.stopPropagation();
-			openShow(show.id);
-		});
 		title.appendChild(titleButton);
 
 		const summary = document.createElement('p');
@@ -416,10 +423,7 @@ function renderEpisodesView() {
 
 	const episodes = state.episodesByShowId[showId] || [];
 
-	if (
-		episodeSelectControl &&
-		episodeSelectControl.options.length !== episodes.length + 1
-	) {
+	if (episodeSelectControl) {
 		populateEpisodeSelectControl(episodes, state.selectedEpisodeId);
 	}
 
@@ -582,9 +586,15 @@ function formatEpisodeCode(seasonNumber, episodeNumber) {
 // Strip HTML tags from a string and return plain text
 function extractText(htmlString) {
 	if (!htmlString) return '';
-	const temp = document.createElement('div');
-	temp.innerHTML = htmlString;
-	return temp.textContent || '';
+
+	try {
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(htmlString, 'text/html');
+		return (doc.body && doc.body.textContent) ? doc.body.textContent : '';
+	} catch (e) {
+		// Fallback: return a best-effort plain string without using innerHTML
+		return String(htmlString).replace(/<[^>]*>/g, '');
+	}
 }
 
 // Truncate a summary to `maxLength` characters and append an ellipsis
