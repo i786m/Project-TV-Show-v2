@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="TV Show Project for Imran Mohamed (i786m)" />
-    <title>TV Show Project | Imran Mohamed (i786m)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="TV Show Project for Imran Mohamed (i786m)" />
+  <title>TV Show Project | Imran Mohamed (i786m)</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+  <header>
+    <h1 class="header-title">PROJECT TV SHOW</h1>
+    <div id="shows-toolbar" class="toolbar shows-toolbar">
       <div class="left-group">
-        <label class="sr-only" for="tv-show-select">TV Show:</label>
+        <label class="sr-only" for="tv-show-select">Jump to show</label>
         <select name="tv-show-select" id="tv-show-select">
-          <option value="">Game of Thrones</option>
+          <option value="" disabled selected>Select a show</option>
         </select>
+      </div>
 
+      <div class="right-group">
+        <p id="shows-count" class="shows-count">Found 0 shows</p>
+        <label class="sr-only" for="show-search">Search shows</label>
+        <input type="search" id="show-search" name="show-search"
+          placeholder="Search shows by genre/keyword" />
+      </div>
+    </div>
+
+    <div id="episodes-toolbar" class="toolbar episodes-toolbar hidden">
+      <div class="left-group">
+        <button id="back-to-shows" type="button" class="back-button">← Back to
+          shows</button>
         <label class="sr-only" for="episode-select">Episode:</label>
         <select name="episode-select" id="episode-select">
           <option value="">All Episodes</option>
@@ -26,12 +43,15 @@
       <div class="right-group">
         <p id="search-results">All episodes</p>
         <label class="sr-only" for="episode-search">Search episodes</label>
-        <input type="search" id="episode-search" name="search" placeholder="Search episodes" />
+        <input type="search" id="episode-search" name="search"
+          placeholder="Search episodes" />
       </div>
-    </header>
-    <main id="root"></main>
+    </div>
+  </header>
+  <main id="root"></main>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+  <!-- Loads YOUR javascript code -->
+  <script src="script.js"></script>
+</body>
+
 </html>
