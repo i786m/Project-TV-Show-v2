@@ -570,9 +570,15 @@ function formatEpisodeCode(seasonNumber, episodeNumber) {
 // Strip HTML tags from a string and return plain text
 function extractText(htmlString) {
 	if (!htmlString) return '';
-	const temp = document.createElement('div');
-	temp.innerHTML = htmlString;
-	return temp.textContent || '';
+
+	try {
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(htmlString, 'text/html');
+		return (doc.body && doc.body.textContent) ? doc.body.textContent : '';
+	} catch (e) {
+		// Fallback: return a best-effort plain string without using innerHTML
+		return String(htmlString).replace(/<[^>]*>/g, '');
+	}
 }
 
 // Truncate a summary to `maxLength` characters and append an ellipsis
