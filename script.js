@@ -335,10 +335,6 @@ function renderShowsView() {
 		titleButton.type = 'button';
 		titleButton.className = 'show-title-button';
 		titleButton.textContent = show.name;
-		titleButton.addEventListener('click', (event) => {
-			event.stopPropagation();
-			openShow(show.id);
-		});
 		title.appendChild(titleButton);
 
 		const summary = document.createElement('p');
