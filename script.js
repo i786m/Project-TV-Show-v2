@@ -115,11 +115,16 @@ async function getJson(url) {
 	}
 
 	const request = (async () => {
-		const response = await fetch(url);
-		if (!response.ok) {
-			throw new Error(`Failed to fetch: ${url}`);
+		try {
+			const response = await fetch(url);
+			if (!response.ok) {
+				throw new Error(`Failed to fetch: ${url}`);
+			}
+			return await response.json();
+		} catch (err) {
+			fetchCache.delete(url); // Remove failed promise from cache
+			throw err;
 		}
-		return await response.json();
 	})();
 
 	fetchCache.set(url, request);
@@ -199,9 +204,16 @@ async function openShow(tvShowId) {
 	if (!cachedEpisodes) {
 		state.status = 'loading';
 		renderStatus();
-		const episodes = await fetchEpisodes(tvShowId);
-		state.episodesByShowId[tvShowId] = episodes;
-		state.status = 'loaded';
+		try {
+			const episodes = await fetchEpisodes(tvShowId);
+			state.episodesByShowId[tvShowId] = episodes;
+			state.status = 'loaded';
+		} catch (error) {
+			state.status = 'error';
+			state.errorMessage = 'Unable to load episodes. Please try again.';
+			renderStatus();
+			return;
+		}
 	}
 
 	const episodes = state.episodesByShowId[tvShowId] || [];
