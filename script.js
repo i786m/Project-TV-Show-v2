@@ -150,6 +150,8 @@ function populateTVShowSelectControl(tvShows) {
 	const placeholder = document.createElement('option');
 	placeholder.value = '';
 	placeholder.textContent = 'Jump to show';
+	placeholder.disabled = true;
+	placeholder.selected = true;
 	showSelectControl.appendChild(placeholder);
 
 	const fragment = document.createDocumentFragment();
