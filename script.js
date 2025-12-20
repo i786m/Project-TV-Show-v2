@@ -377,7 +377,7 @@ function renderShowsView() {
 			{ label: 'Status', value: show.status || 'Unknown' },
 			{
 				label: 'Runtime',
-				value: show.runtime ? `${show.runtime}` : 'N/A',
+				value: show.runtime ? `${show.runtime} minutes` : 'N/A',
 			},
 		];
 
